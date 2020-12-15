@@ -1,4 +1,8 @@
 
+data.frame2<-function(...){
+  data.frame(...,stringsAsFactors=FALSE)
+}
+
 tj_t_test_meta2S<-function(m1,m2,s1,s2,n1,n2){
   sd_pooled=sqrt( ((n1-1)*s1^2+(n2-1)*s2^2)/(n1+n2-2) )
   coeff=sqrt( (1/n1)+(1/n2) )
@@ -14,8 +18,17 @@ tj_t_test_meta1S<-function(m1,m2,s,n){
   pv
 }
 
+tj_resplit<-function(df,col_name,split_char=";"){
+  df_list=list()
+  for (irow in 1:nrow(df)){
+    temp_split=str_trim(str_split(df[[col_name]][irow],split_char)[[1]])
+    df_list[[irow]]=df[rep(irow,length(temp_split)),]
+    df_list[[irow]][[col_name]]=temp_split
+  }
+  do.call(rbind,df_list)
+}
 
-tj_mergeList=function(listDF,mergeName="SYMBOL"){
+tj_mergeList=function(listDF,mergeName="SYMBOL",conflictingNames="rename",...){
 
   if (length(listDF)==0){
     outDF=NULL
@@ -27,9 +40,18 @@ tj_mergeList=function(listDF,mergeName="SYMBOL"){
     for (i in 2:length(listDF)){
       temp_intersect=intersect(colnames(outDF),colnames(listDF[[i]]))
       if (length(temp_intersect)>1){
-       colnames(listDF[[i]])[!(colnames(listDF[[i]])==mergeName)]=paste0(colnames(listDF[[i]])[!(colnames(listDF[[i]])==mergeName)],"_",i)
+       if (conflictingNames=="rename"){  
+         colnames(listDF[[i]])[!(colnames(listDF[[i]])==mergeName)]=paste0(colnames(listDF[[i]])[!(colnames(listDF[[i]])==mergeName)],"_",i)
+       } else if (conflictingNames=="discard") {
+         colnames_to_discard=temp_intersect[!temp_intersect==mergeName]
+         for (icol in colnames_to_discard){
+           listDF[[i]][[icol]]=NULL
+         }
+       } else {
+         stop("something wrong with input argumnets")
+       }
       }
-      outDF=merge(outDF,listDF[[i]],by=mergeName,sort=FALSE)
+      outDF=merge(outDF,listDF[[i]],by=mergeName,sort=FALSE,...)
     }
   }
 

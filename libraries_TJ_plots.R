@@ -1,3 +1,6 @@
+#### Basic plot auxiliaries ####
+
+
 library(ggplot2)
 library(ggthemes)
 library(grid)
@@ -133,7 +136,6 @@ tj_theme_publ<-function (base_size = 12, base_family = "sans",version=1)
   }
   ret
 }
-
 
 
 

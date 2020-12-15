@@ -1,3 +1,4 @@
+#### R update file ####
 
 install.packages(c("stringr","reshape2","Hmisc","MASS","plyr","RCurl"))
 install.packages(c("caret","glmnet","KernSmooth","nnet","e1071"))
@@ -34,11 +35,11 @@ install.packages(c("extrafont", "ggcorrplot", "jtools"))
 ## BioConductor ##
 if (!requireNamespace("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
-BiocManager::install("graphite", version = "3.9")
-BiocManager::install(c("edge","qvalue","limma"), version = "3.9")
-BiocManager::install(c("fgsea","DESeq2"), version = "3.9")
+BiocManager::install("graphite", version = "3.10")
+BiocManager::install(c("edge","qvalue","limma"), version = "3.10")
+BiocManager::install(c("fgsea","DESeq2"), version = "3.10")
 
-BiocManager::install(c("GEOquery","annotate","affy","AnnotationDbi","org.Hs.eg.db"), version = "3.9")
-BiocManager::install(c("KEGG.db","reactome.db"), version = "3.9")
-BiocManager::install(c("biomaRt"), version = "3.9")
-BiocManager::install(c("fgsea"), version = "3.9")
+BiocManager::install(c("GEOquery","annotate","affy","AnnotationDbi","org.Hs.eg.db"), version = "3.10")
+BiocManager::install(c("KEGG.db","reactome.db"), version = "3.10")
+BiocManager::install(c("biomaRt"), version = "3.10")
+BiocManager::install(c("fgsea"), version = "3.10")

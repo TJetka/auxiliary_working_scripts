@@ -1,3 +1,5 @@
+#### Standard packages do load ####
+
 library(stringr)
 library(reshape2)
 library(data.table)
